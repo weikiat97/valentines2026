@@ -6,7 +6,6 @@
     <title>For Babu ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    
     <style>
         body {
             margin: 0; padding: 0; height: 100vh; display: flex;
@@ -25,25 +24,43 @@
             background: rgba(255, 255, 255, 0.95); padding: 50px;
             border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             z-index: 10; text-align: center; max-width: 400px;
+            position: relative;
         }
         h1 { color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 2.8rem; }
-        .buttons { margin-top: 30px; display: flex; justify-content: center; gap: 20px; }
+        
+        /* Updated Button Layout */
+        .buttons { 
+            margin-top: 30px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            gap: 20px; 
+            min-height: 60px; /* Space for buttons */
+        }
+        
         button {
             padding: 12px 35px; font-size: 18px; border-radius: 50px;
             border: none; cursor: pointer; font-weight: 600; transition: 0.3s;
         }
-        #yesBtn { background: #ff4d6d; color: white; }
-        #noBtn { background: #6c757d; color: white; position: absolute; z-index: 999; }
+        #yesBtn { background: #ff4d6d; color: white; position: relative; z-index: 11; }
+        
+        /* No button starts relative, becomes absolute when moved */
+        #noBtn { 
+            background: #6c757d; 
+            color: white; 
+            position: relative; 
+            z-index: 12; 
+        }
+
         #success { display: none; }
         .big-heart { color: #ff4d6d; font-size: 80px; }
     </style>
 </head>
 <body>
     <div class="heart-bg" id="heartBg"></div>
-
     <div id="container">
         <div id="quiz">
-            <h1>Will you be my Valentine, Babu?</h1>
+            <h1>Will you be my Valentine, Babu Aw?</h1>
             <div class="buttons">
                 <button id="yesBtn" onclick="sayYay()">YES!</button>
                 <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
@@ -52,7 +69,7 @@
         <div id="success">
             <div class="big-heart">❤️</div>
             <h1>YAY BABU!!</h1>
-            <p>I knew you'd say yes! I'm so excited for our dinner. 🥂</p>
+            <p>I knew u love me hehe 🥂</p>
         </div>
     </div>
 
@@ -61,47 +78,31 @@
     </audio>
 
     <script>
-        // Logic for the jumping button
         function moveButton() {
             const btn = document.getElementById('noBtn');
+            
+            // Switch to absolute positioning so it can fly anywhere
+            btn.style.position = 'fixed';
+            
+            // Calculate random position
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            
             btn.style.left = x + 'px';
             btn.style.top = y + 'px';
         }
 
-        // Logic for the YES click
         function sayYay() {
             document.getElementById('quiz').style.display = 'none';
             document.getElementById('success').style.display = 'block';
             
-            // Play your song
             const audio = document.getElementById('loveSong');
             audio.volume = 0.5;
-            audio.play().catch(e => console.log("Audio blocked: ", e));
+            audio.play().catch(e => console.log("Audio blocked"));
 
-            // Confetti party
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            
-            var end = Date.now() + (10 * 1000);
-            (function frame() {
-                confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d'] });
-                confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffafbd'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
         }
 
-        // Floating hearts generation
         function createHeart() {
             const heart = document.createElement('div');
-            heart.classList.add('floating-heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
-            document.getElementById('heartBg').appendChild(heart);
-            setTimeout(() => heart.remove(), 6000);
-        }
-        setInterval(createHeart, 300);
-    </script>
-</body>
-</html>
+            heart.classList.add
