@@ -6,6 +6,7 @@
     <title>For Babu ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
     <style>
         body {
             margin: 0; padding: 0; height: 100vh; display: flex;
@@ -39,6 +40,7 @@
 </head>
 <body>
     <div class="heart-bg" id="heartBg"></div>
+
     <div id="container">
         <div id="quiz">
             <h1>Will you be my Valentine, Babu?</h1>
@@ -50,7 +52,7 @@
         <div id="success">
             <div class="big-heart">❤️</div>
             <h1>YAY BABU!!</h1>
-            <p>I knew you'd say yes! Can't wait to celebrate with you. 🥂</p>
+            <p>I knew you'd say yes! I'm so excited for our dinner. 🥂</p>
         </div>
     </div>
 
@@ -59,6 +61,7 @@
     </audio>
 
     <script>
+        // Logic for the jumping button
         function moveButton() {
             const btn = document.getElementById('noBtn');
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
@@ -67,18 +70,19 @@
             btn.style.top = y + 'px';
         }
 
+        // Logic for the YES click
         function sayYay() {
             document.getElementById('quiz').style.display = 'none';
             document.getElementById('success').style.display = 'block';
             
+            // Play your song
             const audio = document.getElementById('loveSong');
             audio.volume = 0.5;
             audio.play().catch(e => console.log("Audio blocked: ", e));
 
-            // Initial Burst
+            // Confetti party
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-
-            // 10-second side celebration
+            
             var end = Date.now() + (10 * 1000);
             (function frame() {
                 confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4d6d'] });
@@ -87,6 +91,7 @@
             }());
         }
 
+        // Floating hearts generation
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('floating-heart');
