@@ -4,60 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Babu ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body {
             margin: 0; padding: 0; height: 100vh; display: flex;
             justify-content: center; align-items: center;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            overflow: hidden;
-        }
-        .heart-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        .floating-heart { position: absolute; bottom: -50px; color: #ff4d6d; animation: floatUp 6s linear infinite; }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+            background: #ffe6e6; font-family: sans-serif; overflow: hidden;
         }
         #container {
-            background: rgba(255, 255, 255, 0.95); padding: 50px;
-            border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            z-index: 10; text-align: center; width: 350px;
+            background: white; padding: 40px; border-radius: 20px;
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 10; width: 300px;
         }
-        h1 { color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin-bottom: 30px; }
+        h1 { color: #ff4d6d; margin-bottom: 30px; }
+        .btn-group { display: flex; justify-content: space-around; height: 50px; }
         
-        .buttons-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            height: 60px;
-        }
-
         button {
-            padding: 12px 35px; font-size: 18px; border-radius: 50px;
-            border: none; cursor: pointer; font-weight: 600; 
+            padding: 10px 25px; font-size: 16px; border-radius: 20px;
+            border: none; cursor: pointer; font-weight: bold;
         }
-
-        #yesBtn { background: #ff4d6d; color: white; transition: 0.3s; position: relative; z-index: 11; }
-        
-        /* The No button needs a higher z-index to fly OVER the box */
+        #yesBtn { background: #ff4d6d; color: white; }
         #noBtn { 
-            background: #6c757d; 
-            color: white; 
-            z-index: 9999;
-            transition: 0.1s ease-out;
+            background: #6c757d; color: white; 
+            position: absolute; /* We start absolute now to avoid layout traps */
+            transition: 0.1s; z-index: 999;
         }
-
         #success { display: none; }
-        .big-heart { color: #ff4d6d; font-size: 80px; }
+        .heart { font-size: 50px; color: #ff4d6d; }
     </style>
 </head>
 <body>
-    <div class="heart-bg" id="heartBg"></div>
+
     <div id="container">
         <div id="quiz">
             <h1>Will you be my Valentine, Babu?</h1>
-            <div class="buttons-wrapper">
-                <button id="yesBtn" onclick="sayYay()">YES!</button>
-                <button id="noBtn" onmouseover="moveButton()" onmouseenter="moveButton()">No</button>
+            <div class="btn-group">
+                <button id="yesBtn" onclick="sayYay()">YES</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+        <div id="success">
+            <div class="heart">❤️</div>
+            <h1>YAY BABU!!</h1>
+            <p>I knew you'd say yes! 🥂</p>
+        </div>
+    </div>
+
+    <audio id="loveSong" loop>
+        <source src="witch-hunt.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const container = document.getElementById('quiz');
+
+        // Position the No button relative to the Yes button initially
+        function initPosition() {
+            const yesBtn = document.getElementById('yesBtn');
+            const rect = yesBtn.getBoundingClientRect();
+            noBtn.style.left = (rect.right + 40) + 'px';
+            noBtn.style.top = rect.top + 'px';
+        }
+        window.onload = initPosition;
+
+        // The move function
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
+            const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        });
+
+        function sayYay() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            document.getElementById('noBtn').style.display = 'none';
+            
+            const audio = document.getElementById('loveSong');
+            audio.play().catch(e => console.log("Audio play blocked"));
+
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        }
+    </script>
+</body>
+</html>
