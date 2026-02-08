@@ -27,7 +27,6 @@
         }
         h1 { color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin-bottom: 30px; }
         
-        /* The container that holds them side-by-side initially */
         .buttons-wrapper {
             display: flex;
             justify-content: center;
@@ -40,15 +39,14 @@
             border: none; cursor: pointer; font-weight: 600; 
         }
 
-        #yesBtn { background: #ff4d6d; color: white; transition: 0.3s; }
-        #yesBtn:hover { transform: scale(1.1); }
+        #yesBtn { background: #ff4d6d; color: white; transition: 0.3s; position: relative; z-index: 11; }
         
-        /* No button starts in the normal flow */
+        /* The No button needs a higher z-index to fly OVER the box */
         #noBtn { 
             background: #6c757d; 
             color: white; 
-            z-index: 999;
-            transition: 0.1s; /* Slight transition for smooth teleport */
+            z-index: 9999;
+            transition: 0.1s ease-out;
         }
 
         #success { display: none; }
@@ -62,14 +60,4 @@
             <h1>Will you be my Valentine, Babu?</h1>
             <div class="buttons-wrapper">
                 <button id="yesBtn" onclick="sayYay()">YES!</button>
-                <button id="noBtn" onmouseover="moveButton()">No</button>
-            </div>
-        </div>
-        <div id="success">
-            <div class="big-heart">❤️</div>
-            <h1>YAY BABU!!</h1>
-            <p>I knew you'd say yes! 🥂</p>
-        </div>
-    </div>
-
-    <audio
+                <button id="noBtn" onmouseover="moveButton()" onmouseenter="moveButton()">No</button>
