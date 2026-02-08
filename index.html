@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2566">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;audio id="loveSong" loop&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;source src=“witch-hunt.mp3” type="audio/mpeg"&gt;</p>
+<p class="p1">&lt;/audio&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// I've tweaked the 'sayYay' function to be even more elaborate</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function sayYay() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('quiz').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('success').style.display = 'block';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Start the music</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const audio = document.getElementById('loveSong');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>audio.volume = 0.5; // Starts at 50% volume</p>
+<p class="p1"><span class="Apple-converted-space">        </span>audio.play().catch(e =&gt; console.log("Audio play blocked: ", e));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Confetti Burst</p>
+<p class="p1"><span class="Apple-converted-space">        </span>confetti({</p>
+<p class="p1"><span class="Apple-converted-space">            </span>particleCount: 150,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>spread: 70,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>origin: { y: 0.6 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>colors: ['#ff4d6d', '#ffafbd', '#ffffff']</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Continuous side-confetti for 10 seconds</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var end = Date.now() + (10 * 1000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>(function frame() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>confetti({</p>
+<p class="p1"><span class="Apple-converted-space">                </span>particleCount: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>angle: 60,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>spread: 55,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>origin: { x: 0 },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>colors: ['#ff4d6d']</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>confetti({</p>
+<p class="p1"><span class="Apple-converted-space">                </span>particleCount: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>angle: 120,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>spread: 55,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>origin: { x: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>colors: ['#ffafbd']</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (Date.now() &lt; end) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>requestAnimationFrame(frame);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}());</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">&lt;/script&gt;</p>
+</body>
+</html>
