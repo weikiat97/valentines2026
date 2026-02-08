@@ -27,26 +27,28 @@
         }
         h1 { color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin-bottom: 30px; }
         
+        /* The container that holds them side-by-side initially */
         .buttons-wrapper {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            position: relative; /* Container for the buttons */
+            gap: 40px;
             height: 60px;
         }
 
         button {
             padding: 12px 35px; font-size: 18px; border-radius: 50px;
-            border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s;
+            border: none; cursor: pointer; font-weight: 600; 
         }
 
-        #yesBtn { background: #ff4d6d; color: white; }
+        #yesBtn { background: #ff4d6d; color: white; transition: 0.3s; }
+        #yesBtn:hover { transform: scale(1.1); }
         
-        /* Starts normally in the flow, no absolute positioning yet */
+        /* No button starts in the normal flow */
         #noBtn { 
             background: #6c757d; 
             color: white; 
             z-index: 999;
+            transition: 0.1s; /* Slight transition for smooth teleport */
         }
 
         #success { display: none; }
@@ -60,7 +62,7 @@
             <h1>Will you be my Valentine, Babu?</h1>
             <div class="buttons-wrapper">
                 <button id="yesBtn" onclick="sayYay()">YES!</button>
-                <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
+                <button id="noBtn" onmouseover="moveButton()">No</button>
             </div>
         </div>
         <div id="success">
@@ -70,29 +72,4 @@
         </div>
     </div>
 
-    <audio id="loveSong" loop>
-        <source src="witch-hunt.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        function moveButton() {
-            const btn = document.getElementById('noBtn');
-            
-            // On the very first hover, we switch it to fixed so it can jump
-            btn.style.position = 'fixed';
-            
-            // Calculate a random spot on the entire screen
-            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
-            
-            btn.style.left = x + 'px';
-            btn.style.top = y + 'px';
-        }
-
-        function sayYay() {
-            document.getElementById('quiz').style.display = 'none';
-            document.getElementById('success').style.display = 'block';
-            
-            const audio = document.getElementById('loveSong');
-            audio.volume = 0.5;
-            audio.play().catch(e => console.
+    <audio
