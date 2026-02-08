@@ -23,33 +23,30 @@
         #container {
             background: rgba(255, 255, 255, 0.95); padding: 50px;
             border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            z-index: 10; text-align: center; max-width: 400px;
-            position: relative;
+            z-index: 10; text-align: center; width: 350px;
         }
-        h1 { color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 2.8rem; }
+        h1 { color: #ff4d6d; font-family: 'Dancing Script', cursive; font-size: 2.8rem; margin-bottom: 30px; }
         
-        /* Updated Button Layout */
-        .buttons { 
-            margin-top: 30px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            gap: 20px; 
-            min-height: 60px; /* Space for buttons */
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative; /* Container for the buttons */
+            height: 60px;
         }
-        
+
         button {
             padding: 12px 35px; font-size: 18px; border-radius: 50px;
-            border: none; cursor: pointer; font-weight: 600; transition: 0.3s;
+            border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s;
         }
-        #yesBtn { background: #ff4d6d; color: white; position: relative; z-index: 11; }
+
+        #yesBtn { background: #ff4d6d; color: white; }
         
-        /* No button starts relative, becomes absolute when moved */
+        /* Starts normally in the flow, no absolute positioning yet */
         #noBtn { 
             background: #6c757d; 
             color: white; 
-            position: relative; 
-            z-index: 12; 
+            z-index: 999;
         }
 
         #success { display: none; }
@@ -60,8 +57,8 @@
     <div class="heart-bg" id="heartBg"></div>
     <div id="container">
         <div id="quiz">
-            <h1>Will you be my Valentine, Babu Aw?</h1>
-            <div class="buttons">
+            <h1>Will you be my Valentine, Babu?</h1>
+            <div class="buttons-wrapper">
                 <button id="yesBtn" onclick="sayYay()">YES!</button>
                 <button id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No</button>
             </div>
@@ -69,7 +66,7 @@
         <div id="success">
             <div class="big-heart">❤️</div>
             <h1>YAY BABU!!</h1>
-            <p>I knew u love me hehe 🥂</p>
+            <p>I knew you'd say yes! 🥂</p>
         </div>
     </div>
 
@@ -81,10 +78,10 @@
         function moveButton() {
             const btn = document.getElementById('noBtn');
             
-            // Switch to absolute positioning so it can fly anywhere
+            // On the very first hover, we switch it to fixed so it can jump
             btn.style.position = 'fixed';
             
-            // Calculate random position
+            // Calculate a random spot on the entire screen
             const x = Math.random() * (window.innerWidth - btn.offsetWidth);
             const y = Math.random() * (window.innerHeight - btn.offsetHeight);
             
@@ -98,11 +95,4 @@
             
             const audio = document.getElementById('loveSong');
             audio.volume = 0.5;
-            audio.play().catch(e => console.log("Audio blocked"));
-
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add
+            audio.play().catch(e => console.
